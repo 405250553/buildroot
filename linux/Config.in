@@ -26,6 +26,7 @@ config BR2_LINUX_NEEDS_MODULES
 #  2. A custom stable version
 #  3. A custom tarball
 #  4. A set of custom repository locations
+#  5. A set of custom local directory locations
 #
 choice
 	prompt "Kernel version"
@@ -92,6 +93,12 @@ config BR2_LINUX_KERNEL_CUSTOM_SVN
 	  This option allows Buildroot to get the Linux kernel source
 	  code from a Subversion repository.
 
+config BR2_LINUX_KERNEL_LOCAL_DIRECTORY
+       bool "Custom local directory"
+       help
+         This option allows Buildroot to get the Linux kernel source
+         code from a local directory.
+
 endchoice
 
 config BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE
@@ -118,6 +125,10 @@ config BR2_LINUX_KERNEL_CUSTOM_REPO_VERSION
 	  Git/Mercurial/Subversion E.G. a sha id, a tag, branch, ..
 
 endif
+
+config BR2_LINUX_KERNEL_CUSTOM_LOCAL_DIRECTORY_LOCATION
+       string "Path of custom local directory"
+       depends on BR2_LINUX_KERNEL_LOCAL_DIRECTORY
 
 config BR2_LINUX_KERNEL_VERSION
 	string
