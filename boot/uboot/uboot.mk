@@ -186,6 +186,11 @@ UBOOT_POST_EXTRACT_HOOKS += UBOOT_XTENSA_OVERLAY_EXTRACT
 UBOOT_EXTRA_DOWNLOADS += $(ARCH_XTENSA_OVERLAY_URL)
 endif
 
+define UBOOT_APPLY_PATCHES
+        $(APPLY_PATCHES) $(@D) $(addsuffix /$(RAWNAME),$(call qstrip,$(BR2_GLOBAL_PATCH_DIR)/uboot)) \*.patch
+endef
+UBOOT_POST_RSYNC_HOOKS += UBOOT_APPLY_PATCHES
+
 # Analogous code exists in linux/linux.mk. Basically, the generic
 # package infrastructure handles downloading and applying remote
 # patches. Local patches are handled depending on whether they are

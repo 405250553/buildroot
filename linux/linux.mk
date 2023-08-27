@@ -238,6 +238,12 @@ else
 LINUX_IMAGE_PATH = $(LINUX_ARCH_PATH)/boot/$(LINUX_IMAGE_NAME)
 endif # BR2_LINUX_KERNEL_VMLINUX
 
+define LINUX_APPLY_PATCHES
+        $(APPLY_PATCHES) $(@D) $(addsuffix /$(RAWNAME),$(call qstrip,$(BR2_GLOBAL_PATCH_DIR)/linux)) \*.patch
+endef
+LINUX_POST_RSYNC_HOOKS += LINUX_APPLY_PATCHES
+
+
 define LINUX_APPLY_LOCAL_PATCHES
 	for p in $(filter-out ftp://% http://% https://%,$(LINUX_PATCHES)) ; do \
 		if test -d $$p ; then \
